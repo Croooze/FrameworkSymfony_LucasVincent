@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Produit {{produit.id}} {% endblock %}
+
+{% block body %}
+    <h1> Bienvenue sur mon site de vente de jardinage </h1>
+    <article>
+    <h2> Article : {{produit.titre}} </h2>
+    <p> Description : {{ produit.description }} </p>
+    <small> Prix : {{ produit.prix|format_currency('EUR', locale='fr') }} </small>
+    </article>
+{% endblock %}

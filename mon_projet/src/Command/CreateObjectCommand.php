@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Objet;
 
 #[AsCommand(
 name: 'create_object',
@@ -23,6 +24,7 @@ class CreateObjectCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setName('app:create-object')
             ->setDescription('Creation Objet');
     }
 
@@ -34,23 +36,71 @@ class CreateObjectCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln([
-            'Création Objet',
-            '================',
-            '',
-        ]);
+        $entityManager = $this->doctrine->getManager();
 
-        $io = new SymfonyStyle($input, $output);
+        $objet1 = new Objet();
+        $objet1->setTitre("Pelle");
+        $objet1->setDescription("Outil de Jardin");
+        $objet1->setPrix(15);
+        $entityManager->persist($objet1);
 
-        $objects = [];
+        $objet2 = new Objet();
+        $objet2->setTitre("Cisaille");
+        $objet2->setDescription("Outil de Jardin");
+        $objet2->setPrix(10);
+        $entityManager->persist($objet2);
 
-        for ($i = 0; $i < 10; $i++) {
-            $objects[] = new \stdClass();
-        }
-        $io->success('');
+        $objet3 = new Objet();
+        $objet3->setTitre("Tondeuse");
+        $objet3->setDescription("Outil de Jardin");
+        $objet3->setPrix(18);
+        $entityManager->persist($objet3);
 
+        $objet4 = new Objet();
+        $objet4->setTitre("Fourche");
+        $objet4->setDescription("Outil de Jardin");
+        $objet4->setPrix(22);
+        $entityManager->persist($objet4);
+
+        $objet5 = new Objet();
+        $objet5->setTitre("Rateau");
+        $objet5->setDescription("Outil de Jardin");
+        $objet5->setPrix(10);
+        $entityManager->persist($objet5);
+
+        $objet6 = new Objet();
+        $objet6->setTitre("Sécateur");
+        $objet6->setDescription("Outil de Jardin");
+        $objet6->setPrix(7.80);
+        $entityManager->persist($objet6);
+
+        $objet7 = new Objet();
+        $objet7->setTitre("Souffleur");
+        $objet7->setDescription("Outil de Jardin");
+        $objet7->setPrix(75);
+        $entityManager->persist($objet7);
+
+        $objet8 = new Objet();
+        $objet8->setTitre("Marteau");
+        $objet8->setDescription("Outil de Jardin");
+        $objet8->setPrix(9.90);
+        $entityManager->persist($objet8);
+
+        $objet9 = new Objet();
+        $objet9->setTitre("Pic");
+        $objet9->setDescription("Outil de Jardin");
+        $objet9->setPrix(2.80);
+        $entityManager->persist($objet9);
+
+        $objet10 = new Objet();
+        $objet10->setTitre("Brouette");
+        $objet10->setDescription("Outil de Jardin");
+        $objet10->setPrix(27);
+        $entityManager->persist($objet10);
+
+        $entityManager->flush();
         return Command::SUCCESS;
     }
 }

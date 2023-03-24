@@ -9,31 +9,37 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PublicController extends AbstractController
 {
-
     private ObjetRepository $objetRepository;
 
     public function __construct(ObjetRepository $objetRepository)
     {
         $this->objetRepository = $objetRepository;
-        parent::__construct();
+        /*parent::__construct();*/
     }
 
-    #[Route('/public', name: 'home_page')]
+
+    #[Route('/', name: 'app_public')]
     public function index(): Response
     {
+        $listeObjet = $this->objetRepository->findAll();
         return $this->render('public/index.html.twig', [
             'controller_name' => 'PublicController',
+            'liste' => $listeObjet,
         ]);
     }
 
-    /*#[Route('/produit/{id}', name: 'home_page')]
-    public function produit(): Response
+    #[Route('/produit/{id}', name: 'app_produit')]
+    public function produit($id): Response
     {
-    return $this->render('public/produit/index.html.twig', [
-    'controller_name' => 'PublicController',
-    ]);
-    }*/
-    #[Route('/commande', name: 'home_page')]
+        $produit = $this->objetRepository->find(['id' => $id]);
+        return $this->render('public/produit.html.twig', [
+            'controller_name' => 'PublicController',
+            'produit' => $produit,
+        ]);
+    }
+
+
+    #[Route('/commande', name: 'app_commande')]
     public function commande(): Response
     {
         return $this->render('public/commande/index.html.twig', [
